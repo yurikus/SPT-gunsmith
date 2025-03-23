@@ -1,0 +1,15 @@
+{
+  "name": "gunsmith",
+  "version": "2.2.1",
+  "sptVersion": "~3.11",
+  "main": "src/mod.js",
+  "license": "CC",
+  "author": "Alex",
+  "isBundleMod": false,
+  "loadBefore": [],
+  "loadAfter": [],
+  "incompatibilities": [],
+  "contributors": [],
+  "scripts": {},
+  "devDependencies": {}
+}

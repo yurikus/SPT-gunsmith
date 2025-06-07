@@ -19,11 +19,14 @@ class GunsmithMod implements IPreSptLoadMod, IPostDBLoadMod {
   private logger: ILogger;
 
   constructor() {
-    this.mod = "gunsmith";
+    this.modRoot = path.join(__dirname, "../");
+    this.mod = "yurikus.gunsmith";
   }
 
   public preSptLoad(container: DependencyContainer): void {
     this.logger = container.resolve<ILogger>("WinstonLogger");
+    this.logger.info(this.modRoot);
+
     this.logger.debug(`[${this.mod}] PreSpt Loading...`);
 
     const preSptModLoader: PreSptModLoader =
@@ -56,7 +59,7 @@ class GunsmithMod implements IPreSptLoadMod, IPostDBLoadMod {
     const jsonUtil: JsonUtil = container.resolve<JsonUtil>("JsonUtil");
     const tables = databaseServer.getTables();
 
-    const assortPath = path.join(__dirname, "../db/assort.json");
+    const assortPath = path.join(this.modRoot, "/db/assort.json");
 
     let assortData;
 
@@ -97,10 +100,9 @@ class GunsmithMod implements IPreSptLoadMod, IPostDBLoadMod {
     preSptModLoader: PreSptModLoader,
     imageRouter: ImageRouter
   ): void {
-    const imageFilepath = `./${preSptModLoader.getModPath(this.mod)}res`;
     imageRouter.addRoute(
       baseJson.avatar.replace(".jpg", ""),
-      `${imageFilepath}/gunsmith.jpg`
+      `${this.modRoot}/res/gunsmith.jpg`
     );
   }
 
@@ -130,7 +132,7 @@ class GunsmithMod implements IPreSptLoadMod, IPostDBLoadMod {
   }
 
   private generateAssort(): any {
-    const presetsPath = path.join(__dirname, "../db/presets.json");
+    const presetsPath = path.join(this.modRoot, "/db/presets.json");
     if (!fs.existsSync(presetsPath)) {
       this.logger.error(`[${this.mod}] Presets file not found.`);
       return {

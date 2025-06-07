@@ -25,7 +25,6 @@ class GunsmithMod implements IPreSptLoadMod, IPostDBLoadMod {
 
   public preSptLoad(container: DependencyContainer): void {
     this.logger = container.resolve<ILogger>("WinstonLogger");
-    this.logger.info(this.modRoot);
 
     this.logger.debug(`[${this.mod}] PreSpt Loading...`);
 

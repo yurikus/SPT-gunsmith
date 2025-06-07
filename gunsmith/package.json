@@ -1,15 +1,17 @@
 {
-  "name": "gunsmith",
-  "version": "2.2.1",
+  "name": "yurikus.gunsmith",
+  "version": "3.0.5",
   "sptVersion": "~3.11",
   "main": "src/mod.js",
   "license": "CC",
-  "author": "Alex",
+  "author": "Alex, yurikus",
   "isBundleMod": false,
   "loadBefore": [],
   "loadAfter": [],
   "incompatibilities": [],
   "contributors": [],
-  "scripts": {},
+  "scripts": {
+    "pack-release": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"$pkg = Resolve-Path package.json; $root = Split-Path $pkg -Parent; $parent = Split-Path $root -Parent; $json = Get-Content $pkg | ConvertFrom-Json; $v = $json.version; $n = $json.name; $temp = Join-Path $root 'temp_pack'; $target = Join-Path $temp ('user/mods/' + $n + '-' + $v); New-Item -Path $target -ItemType Directory -Force | Out-Null; Copy-Item -Path (Join-Path $root '*') -Destination $target -Recurse -Force -Exclude 'temp_pack'; & 'C:/Program Files/WinRAR/rar.exe' a -r -ep1 (Join-Path $parent ($n + '-' + $v + '.rar')) (Join-Path $temp 'user'); Remove-Item -Recurse -Force $temp\""
+  },
   "devDependencies": {}
 }
